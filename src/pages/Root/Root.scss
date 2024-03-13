@@ -1,0 +1,35 @@
+$white: white;
+$hrefBgColor: #6f3eff;
+
+a {
+	width: 100%;
+	color: $white;
+	&:hover {
+		background-color: $hrefBgColor;
+	}
+}
+.StdRow {
+	display: flex;
+	justify-content: space-between;
+	font-size: 2rem;
+}
+#StudLink {
+	font-size: 1.5rem;
+}
+.userWindow {
+	display: flex;
+}
+.GifImg {
+	position: absolute;
+	right: 0;
+	top: 0;
+	img {
+		user-select: none;
+	}
+}
+#outlet {
+	flex-grow: 1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}

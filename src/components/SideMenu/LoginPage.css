@@ -1,0 +1,164 @@
+.Form{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 30vw;
+    height: 50vh;
+    text-align: center;
+    align-items: center;
+    background-color: rgba(102,51,153, .5);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.Form-input{
+    gap: 2rem;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.Form-input input{
+    color: white;
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+}
+.Form-input input:focus{
+    transform: translateY(-2px);
+    outline: none;
+    color: white;
+}
+
+.Page{
+    width: 79vw;
+    display: flex;
+    justify-content: center;
+
+}
+.Form h1{
+    color: white
+}
+
+.Form__buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.Form__buttons button{
+    cursor: pointer;
+    color: white;
+    border: none;
+    border: 1px solid white;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: .1s linear;
+    min-height: 2.5rem;
+}
+.Form__buttons button:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.Form__buttons button:active{
+    transform: translateY(1px);
+}
+
+
+
+#Form-reg-link{
+    color: white;
+}
+
+.Form__buttons button:hover{
+    color: white;
+    background-color: #6f3eff;
+}
+
+#Form-reg-link:hover{
+    background-color: transparent;
+}
+
+
+
+.Form-input-reg{
+    gap: 2rem;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+#Reg-button{
+    color: white;
+    border: none;
+    border: 1px solid white;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: .5s linear;
+}
+#Reg-button:hover{
+    background-color: #6f3eff;
+}
+.Form-input-reg input{
+    color: white;
+    font-size: 1rem;
+    /* padding: 10px; */
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+}
+.Form-input-reg input:focus{
+    transform: translateY(-2px);
+    outline: none;
+    color: white;
+}
+
+.Form-input-reg__button button{
+    width: 13rem;
+    color: white;
+    border: none;
+    border: 1px solid white;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: .1s linear;
+    min-height: 2.5rem;
+}
+.Form-input-reg__button button:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.Form-input-reg__button button:active{
+    transform: translateY(1px);
+}
+@media screen and (max-width: 900px){
+    .Form{
+        height: 40vh;
+    }
+    .Form h1{
+        font-size: 1rem;
+    }   
+    .Form__buttons{
+        font-size: 0.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .Form-input input{
+        width: 6rem;
+    }
+
+    #Reg-button{
+        display: block;
+    }
+    .Form-input-reg input{
+        width: 6rem;
+    }
+
+}

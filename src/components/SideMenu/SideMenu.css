@@ -1,0 +1,179 @@
+#homePG{
+    background-color: transparent;
+    color: white;
+}
+#homePG h1{
+    transform: translateY(.5rem);
+}
+.sideBAr__Items{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sideBar{
+    position: relative;
+    margin-top: 0;
+    width: 250px;
+    height: 98vh;
+    text-align: center;
+    background-color: #14161B;
+    color: rgb(83, 83, 83);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-weight: 100;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: width .5s linear;
+}
+
+:is(#closed) .sideBAr__Items .menu .FavItem .menuItem h1 {
+    display: none;
+    text-align: center;
+}
+#closed #sliderELem {
+    position: absolute;
+    right: 50%; /* Center horizontally */
+    top: 1.6rem;
+    transform: translateX(50%); /* Center horizontally */
+    font-size: 30px;
+    color: white;
+}
+:is(#closed) .menu {
+    align-items: center;
+    justify-content: center;
+}
+:is(#closed)  h1 {
+    visibility: hidden;
+    text-align: center;
+}
+:is(#closed) .sideBAr__Items .LogInOut .LoginIcon {
+    display: none;
+    text-align: center;
+}
+#sliderELem{
+    padding: 10px;
+    font-size: 30px;
+    color: white;
+    position: absolute;
+
+    right: 0;
+    top: 1.6rem;
+    border-radius: 10px;
+    transition: .5s linear;
+}
+#sliderELem:hover{
+    background-color: #6f3eff;
+
+}
+
+
+.menuItem{
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    transition: .2s linear;
+
+}
+
+.menuItem h1{
+    font-size: 1rem;
+}
+.menuItem:hover{
+    background-color: #6f3eff;
+    border-radius: 7px;
+}
+
+.FavItem{
+    display: flex;
+    
+}
+
+.LogInOut a{
+    color: white;
+}
+#SignIn{
+    transition: .5s linear;
+}
+#SignUp{
+    transition: .5s linear;
+}
+#SignIn:hover{
+    font-weight: 1000;
+}
+#SignUp:hover{
+    font-weight: 1000;
+}
+
+.sideBAr__Items2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.SignMessage{
+    border: 2px solid rebeccapurple;
+    font-size: 1rem;
+    color: white;
+    border-radius: 10px;
+}
+.sideBar__elements{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#sideBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.LoginIcon{
+    align-items: center;
+    display: flex;
+}
+.LoginIcon h1{
+    font-size: 1rem;
+}
+.LogInOut
+{
+    color: white;
+    /* background-color: white; */
+    display: flex;
+    justify-content: space-around;
+    /* font-size: 2rem; */
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width: 900px){
+    .sideBar{
+        width: 70px;
+    }
+    .sideBAr__Items .menu .FavItem .menuItem h1 {
+        display: none;
+        text-align: center;
+    }
+}
+
+
+
+#LogOutBtn{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: .5s linear;
+}
+
+#LogOutBtn:hover{
+    cursor: pointer;
+    background-color:#6f3eff;
+    border-radius: 10px;
+}
+
+
