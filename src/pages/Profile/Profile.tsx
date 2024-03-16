@@ -6,26 +6,6 @@ import './Profile.scss';
 interface StudiesProps {}
 
 const Studies: React.FC<StudiesProps> = () => {
-  // const [data, setData] = useState<string | null>(null);
-  // const user = sessionStorage.key(0)
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.post('http://localhost:3001/app/login', { user, pass }, {
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         }
-  //       })
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <>
@@ -35,6 +15,7 @@ const Studies: React.FC<StudiesProps> = () => {
           <div className='header__info'>
             <a id='someText' href="">SomeText</a>
             <a id='about' href="">About</a>
+            <span className="about__description">Свобоба, учеба, общение. БОРДУ НЕ ТРЕМЬ!!!!</span>
           </div>
         </header>
 
@@ -45,10 +26,7 @@ const Studies: React.FC<StudiesProps> = () => {
           <div className="main__timeInForum">
             <h1>0 hr</h1>
           </div>
-          <div className="main__dataOfActive"> 
-            <h1>DataBase</h1>
-          </div>
-          <div className="main__ChangeData">
+          <div className="main__ChangeData"> 
             <h1>Change data</h1>
             <form id='changeData' action="">
               <label id='changeData' htmlFor="">
@@ -60,6 +38,9 @@ const Studies: React.FC<StudiesProps> = () => {
                 <button id='changeData__input__btn' type="submit">Change</button>
               </label>
             </form>
+          </div>
+          <div className="main__dataOfActive">
+            <h1>Admin Section or Standard User</h1>
           </div>
         </main>
 

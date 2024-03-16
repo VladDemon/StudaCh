@@ -156,7 +156,7 @@
         width: 70px;
     }
     .sideBAr__Items .menu .FavItem .menuItem h1 {
-        display: none;
+        /* display: none; */
         text-align: center;
     }
 }

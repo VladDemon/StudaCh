@@ -1,11 +1,13 @@
 import './Chat.scss'
 import axios from 'axios'
-
+import ChatRoom from '../../components/ChatRoom/ChatRoom'
+import { useEffect, useState } from 'react'
 
 function Chat() {
+
   return (
     <div className='Chat'>
-      <h1>There Will Be General Chat</h1>
+      <ChatRoom/>
     </div>
   )
 }

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/lowdb": "^1.0.15",
     "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -17,6 +18,8 @@
     "fs-js": "^1.0.6",
     "jsonwebtoken": "^9.0.2",
     "jwt": "^0.2.0",
+    "lowdb": "^7.0.1",
+    "nanoid": "^5.0.6",
     "nodemon": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,10 +27,12 @@
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.1",
     "resizable": "^1.2.1",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
-    "@types/node": "^20.11.24",
+    "@types/node": "^20.11.28",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@types/react-resizable": "^3.0.7",

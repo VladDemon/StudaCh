@@ -4,7 +4,12 @@ import express from 'express'
 import path from 'path'
 import fs from 'fs'
 import jwt from 'jsonwebtoken'
+import http from 'http'
 
+
+
+import { createServer } from 'http'
+import { Server } from 'socket.io';
 
 const __dirname = path.resolve()
 const app = express();
@@ -14,9 +19,20 @@ const SECRET_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser());
+app.use(express.static(path.join('public')));
 
 let dataFilePath = path.join(__dirname, "dataBase", "users.json")
 let dataBase = JSON.parse(fs.readFileSync(dataFilePath));
+
+let dataMsgPath = path.join(__dirname, "dataBase", "messages.json")
+let MsgJSON = JSON.parse(fs.readFileSync(dataMsgPath));
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:5173',
+  },
+});
 
 const generateToken = (user) => {
   return jwt.sign({ user }, SECRET_TOKEN, { expiresIn: '1h' });
@@ -36,6 +52,28 @@ const authToken = (req, res, next) => {
 
 
 
+
+
+io.on('connection', (socket) => {
+  socket.emit('init', MsgJSON.messages);
+
+  socket.on('message', (msg) => {
+    const message = JSON.parse(msg);
+    io.emit('res', message);
+    MsgJSON.messages.push(message);
+    fs.writeFile(dataMsgPath, JSON.stringify(MsgJSON, null, 2), (err) => {
+      if(err) return;
+    })
+  })
+  socket.on('disconnect', () => {
+  });
+})
+
+app.use('/socket.io', (req, res, next) => {
+  res.status(404).end();
+});
+
+
 app.post('/app/register', async(req,res) =>{
   let newData = { user: req.body.user, pass: req.body.pass };
   dataBase.push(newData);
@@ -53,31 +91,22 @@ app.post('/app/login', (req, res) => {
   } else{
     const token = generateToken(user);
     res.json({success: true, user: user, pass: pass, token})
-    // const token = jwt.sign({ user }, SECRET, { expiresIn: '1h' });
-    // res.json({success: true, user: user, pass: pass, token})
+
   }
 })
 
-// const authToken = (req, res, next) =>{
-//   const Token = req.header('Authorization')
 
-//   if(!Token) return res.sendStatun(401)
-//   // jwt.verify(token, SECRET, (err, user) => {
-//     if(err) return res.sendStatun(403);
-//     req.user = user;
-//     next();
-//   })
-// }
+
 app.get('/app/profile', (req,res) => {
   res.json({
     message: "HelloFromBackEnd",
     user: req.user
   })
-})  
+})
 
 const start = () =>{
   try{
-    app.listen(PORT, () =>{
+    server.listen(PORT, () =>{
       console.log(`Server Starte on PORT ${PORT}`);
     })
   }

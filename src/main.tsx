@@ -10,7 +10,7 @@ import Chat from './pages/Chat/Chat';
 import Teaming from './pages/Teaming/Teaming';
 import LoginPage from './components/SideMenu/LoginPage'
 import RegistrationPage from './components/SideMenu/RegistrationPage';
-import Stream from './pages/Stream';
+import Stream from './pages/Stream/Stream';
 import GetUser from './pages/GetUser';
 import './index.scss'
 
