@@ -76,9 +76,15 @@ app.use('/socket.io', (req, res, next) => {
 
 app.post('/app/register', async(req,res) =>{
   let newData = { user: req.body.user, pass: req.body.pass };
-  dataBase.push(newData);
-  fs.writeFileSync(dataFilePath, JSON.stringify(dataBase, null, 2));
-  res.json({ success: true, message: 'Data added successfully' });
+  if(!dataBase.find((item) => {return item.user === req.body.user})){
+    dataBase.push(newData);
+    fs.writeFileSync(dataFilePath, JSON.stringify(dataBase, null, 2));
+    res.json({ success: true, message: 'Data added successfully' });
+    console.log("true")
+  }
+  res.json({ success: false, message: 'User already exists' });
+  console.log("exist")
+
 });
 
 app.post('/app/login', (req, res) => {

@@ -1,21 +1,30 @@
 import React from 'react';
-
+import axios from 'axios';
 import './Profile.scss';
-
+import { useState } from 'react';
 
 interface StudiesProps {}
 
 const Studies: React.FC<StudiesProps> = () => {
+  // const [countMsg, setCountMsg] = useState<number>(0)
+  // const [timeInForum, setTimeInForum] = useState<number>(0);
 
+
+  // const hadnleCountMsg =() => {
+  //   axios.get('http://localhost:3001/app/')
+  //   .then(res => {
+  //     setCountMsg(res.data)
+  //   })
+  // }
+  // }
   return (
     <>
       <div className='studies'>
         <header>
         <h1>Dashboard</h1>
           <div className='header__info'>
-            <a id='someText' href="">SomeText</a>
             <a id='about' href="">About</a>
-            <span className="about__description">Свобоба, учеба, общение. БОРДУ НЕ ТРЕМЬ!!!!</span>
+            <span className="about__description">Свобода, учеба, общение.<br></br> БОРДУ НЕ ТРЕМЬ И НЕ ШАТАЕМ!!!!</span>
           </div>
         </header>
 

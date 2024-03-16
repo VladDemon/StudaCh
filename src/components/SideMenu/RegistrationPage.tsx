@@ -13,7 +13,7 @@ const RegistrationPage: React.FC = () => {
                         'Content-Type' : 'application/json'
                     }
                 });
-                console.log(response.data);
+                console.log(response.data.success);
             } catch (error) {
                 console.error("Error", error);
             }
@@ -32,7 +32,6 @@ const RegistrationPage: React.FC = () => {
                         <div className='Form-input-reg__button'>
                             <button onClick={HandleReg}>Sign Up</button>
                         </div>
-                        
                 </form>
             </div>
         </div>
