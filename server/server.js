@@ -3,23 +3,34 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import path from 'path'
 import fs from 'fs'
-import jwt from 'jsonwebtoken'
 import http from 'http'
+import expressSession, { Session } from 'express-session';
+import CryptoJS from 'crypto-js'
+import { nanoid } from 'nanoid'
 
-
-
-import { createServer } from 'http'
 import { Server } from 'socket.io';
-
 const __dirname = path.resolve()
 const app = express();
 const PORT = process.env.PORT  || 3001;
-const SECRET_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcwOTM1MTc1MywiaWF0IjoxNzA5MzUxNzUzfQ.bUCXs0Aw1xdhS8jrj2h54qZMJJByKsWX4R0o-krez4A"
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser());
 app.use(express.static(path.join('public')));
+const secretKey = CryptoJS.lib.WordArray.random(64).toString(CryptoJS.enc.Hex);
+
+const genuId = ()=>{
+  return nanoid(6);
+}
+
+
+app.use(expressSession({
+  name: 'cookSession',
+  secret: secretKey,
+  resave: false,
+  saveUninitialized: false,
+}))
+
 
 let dataFilePath = path.join(__dirname, "dataBase", "users.json")
 let dataBase = JSON.parse(fs.readFileSync(dataFilePath));
@@ -34,30 +45,12 @@ const io = new Server(server, {
   },
 });
 
-const generateToken = (user) => {
-  return jwt.sign({ user }, SECRET_TOKEN, { expiresIn: '1h' });
-};
-
-const authToken = (req, res, next) => {
-  const token = req.header('Authorization');
-
-  if (!token) return res.sendStatus(401);
-
-  jwt.verify(token, SECRET_TOKEN, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};
-
-
-
-
 
 io.on('connection', (socket) => {
   socket.emit('init', MsgJSON.messages);
 
   socket.on('message', (msg) => {
+    console.log(msg)
     const message = JSON.parse(msg);
     io.emit('res', message);
     MsgJSON.messages.push(message);
@@ -66,9 +59,9 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('disconnect', () => {
+    
   });
 })
-
 app.use('/socket.io', (req, res, next) => {
   res.status(404).end();
 });
@@ -76,30 +69,60 @@ app.use('/socket.io', (req, res, next) => {
 
 app.post('/app/register', async(req,res) =>{
   let newData = { user: req.body.user, pass: req.body.pass };
-  if(!dataBase.find((item) => {return item.user === req.body.user})){
-    dataBase.push(newData);
-    fs.writeFileSync(dataFilePath, JSON.stringify(dataBase, null, 2));
-    res.json({ success: true, message: 'Data added successfully' });
-    console.log("true")
-  }
-  res.json({ success: false, message: 'User already exists' });
-  console.log("exist")
-
+  dataBase.push(newData);
+  fs.writeFileSync(dataFilePath, JSON.stringify(dataBase, null, 2));
+  res.json({ success: true, message: 'Data added successfully' });
 });
+
+
 
 app.post('/app/login', (req, res) => {
   const {user, pass} = req.body;
   console.log('Request Body:', req.body);
   const LogSucces = dataBase.find((item) => {return item.user === user && item.pass === pass})
-  console.log(LogSucces)
   if(!LogSucces){
     res.json({success: false})
   } else{
-    const token = generateToken(user);
-    res.json({success: true, user: user, pass: pass, token})
-
+    // const sessionID = genuId();
+    // req.session.user = user;
+    // здесь создание сессии
+    res.json({success: true, user: user, pass: pass})
   }
 })
+
+// Здесь аутентификация на сессии
+// app.post('/app/authenticated', (req, res) => {
+//   console.log(111)
+//   // const sessionId = req.session.id;
+//   // const userSessionId = req.getSessionId;
+//   const sessionId = req.sessionID;
+//   const userSessionId = req.body.getSessionId;
+//   console.log(req.body);
+//   console.log(req.session.user, sessionId, userSessionId)
+//   if (req.session.user) {
+//       res.json({ authenticated: true, user: req.session.user });
+//       console.log(req.session.user)
+//   } else {
+//       res.json({ authenticated: false });
+//   }
+// });
+
+app.get("/app/userList", (req,res) => {
+  res.json(dataBase.map(us => {return us.user}))
+})
+
+
+app.post('/app/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.sendStatus(500);
+    } else {
+      res.clearCookie('cookSession');
+      res.json({ success: true, message: 'Logout successful' });
+    }
+  });
+});
 
 
 
@@ -122,8 +145,4 @@ const start = () =>{
 }
 
 start()
-app.get('/app/profile', (req, res)=> {
-  res.json({
-    message: "HelloFromBackEnd",
-  })
-});
+

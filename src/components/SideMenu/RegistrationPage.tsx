@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");   
+    const navigate = useNavigate();
     const HandleReg = async (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if(userName.length > 0 && password.length >0){
@@ -14,6 +16,10 @@ const RegistrationPage: React.FC = () => {
                     }
                 });
                 console.log(response.data.success);
+                const success = response.data.success;
+                if(success){
+                    navigate("/sign/login-in")
+                }
             } catch (error) {
                 console.error("Error", error);
             }

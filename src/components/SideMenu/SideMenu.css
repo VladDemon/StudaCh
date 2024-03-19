@@ -35,9 +35,9 @@
 }
 #closed #sliderELem {
     position: absolute;
-    right: 50%; /* Center horizontally */
+    right: 50%; 
     top: 1.6rem;
-    transform: translateX(50%); /* Center horizontally */
+    transform: translateX(50%); 
     font-size: 30px;
     color: white;
 }
@@ -152,9 +152,6 @@
 }
 
 @media screen and (max-width: 900px){
-    .sideBar{
-        width: 70px;
-    }
     .sideBAr__Items .menu .FavItem .menuItem h1 {
         /* display: none; */
         text-align: center;

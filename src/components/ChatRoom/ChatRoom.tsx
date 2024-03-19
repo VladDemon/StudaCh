@@ -20,8 +20,8 @@ const ChatRoom = () =>{
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement> ) : void => {
         e.preventDefault();
-        const user: string | null = sessionStorage.key(0);
-        if(inputValue.trim() && sessionStorage.getItem(user) === "true"){
+        const user: string | null = localStorage.key(1);
+        if(inputValue.trim() && localStorage.getItem(user) === "true"){
             const message: Message = {
                 message: inputValue,
                 chatUser: user || "",

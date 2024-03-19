@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -9,26 +9,20 @@ import { useAuthContext } from './GetLoginPass';
 
 import './LoginPage.css'
 
-const inputs = document.getElementById("Form-input__input")
 
 
-
-const SignIn: FC = () => {
+const SignIn = () => {
   const [user, setUser] = useState<string>('');
   const [pass, setPass] = useState<string>('');
   const navigate = useNavigate();
-
   const {setAuthData} = useAuthContext()
-
   const { setIsLoggedSuccessful } = useAuth();
 
   useEffect(()=>{
     const checkIsLogged = async () =>{
 
       const loggedInUser = sessionStorage.getItem(user)
-      console.log(loggedInUser, user)
       if(loggedInUser === "true"){
-        console.log(1)
         setUser(loggedInUser);
         setIsLoggedSuccessful(true)
       }
@@ -40,7 +34,7 @@ const SignIn: FC = () => {
     e.preventDefault()
 
     if (!user || !pass) {
-      // console.log("Please enter both username and password.");
+      console.log("Please enter both username and password.");
       return;
     }
 
@@ -52,26 +46,22 @@ const SignIn: FC = () => {
     const isLoggedSuccess: boolean = response.data.success;
     const login = response.data.user;
     const password = response.data.pass;
-
+    const success = response.data.success;
+    const id = response.data.sessionId;
     setAuthData(login, password);
-
-    if (isLoggedSuccess) {
-      console.log("YYESSS")
-      sessionStorage.setItem(login, "true");
+    console.log(response.data);
+    if (success) {
+      localStorage.setItem(login, "true");
+      localStorage.setItem("sessionId", id);
       setIsLoggedSuccessful(true)
-      if(isLoggedSuccess === true){
         navigate('/pages/Studies');
-      }
     } else {
-      console.log(inputs)
-
-      setTimeout(()=>{
-
-      }, 600)
-      console.log("No Repeat Your Pass")
+      console.log('Login failed:', response.data.message);
     }
   };
+  
 
+  
   return (
     <div className="Page">
       <div className="Form">
